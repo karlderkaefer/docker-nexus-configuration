@@ -1,0 +1,42 @@
+apply plugin: 'groovy'
+
+group = 'com.signavio.nexus-configuration'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext {
+    nexusVersion = '3.2.0-01'
+}
+
+repositories {
+     mavenCentral()
+}
+
+task uploadScripts(type: NexusScriptUploadTask, dependsOn: 'deleteScripts') {
+    files = scriptFiles
+}
+
+task deleteScripts(type: NexusScriptDeleteTask) {
+    files = scriptFiles
+}
+
+task executeScripts(type: NexusScriptExecuteTask, dependsOn: 'uploadScripts') {
+    files = scriptFiles
+}
+
+def getScriptFiles() {
+    project.file('src/main/groovy').listFiles()
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion '3.3'
+}
+
+dependencies {
+    compile group: 'org.sonatype.nexus', name: 'nexus-core', version: "$nexusVersion"
+    compile group: 'org.sonatype.nexus', name: 'nexus-script', version: "$nexusVersion"
+    compile group: 'org.sonatype.nexus', name: 'nexus-security', version: "$nexusVersion"
+    compile group: 'org.sonatype.nexus.plugins', name: 'nexus-script-plugin', version: "$nexusVersion"
+}

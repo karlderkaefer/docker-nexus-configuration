@@ -1,0 +1,5 @@
+/nexus-configuration/build
+/nexus-configuration/.gradle
+/nexus-configuration/.idea
+/nexus-configuration/buildSrc/.gradle
+/nexus-configuration/buildSrc/build
