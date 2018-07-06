@@ -11,7 +11,7 @@ class AbstractNexusTask extends DefaultTask {
     }
 
     HTTPBuilder getDefaultHttp() {
-        String url = "${project.properties.host}/service/siesta/rest/v1/script"
+        String url = "${project.properties.host}/service/rest/v1/script"
         String username = project.properties.username
         String password = project.properties.password
         String basicAuth = "$username:$password".bytes.encodeBase64().toString()
